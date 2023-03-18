@@ -1,21 +1,31 @@
 import { createSignal, createEffect } from "solid-js";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import ToggleButton from "~/components/ToggleButton";
+import DropdownMenu from "~/components/DropdownMenu";
+import ConnectionStatus from "~/components/ConnectionStatus";
 
 export default function Home() {
   const [messages, setMessages] = createSignal([]);
+  const [connectStatus, setConnectStatus] = createSignal(false);
 
   let connection;
 
   createEffect(() => {
     connection = new HubConnectionBuilder()
-      .withUrl("https://differentgoldlamp8.conveyor.cloud/Hubs/chatHub")
+      .withUrl("https://earlyyellowrock19.conveyor.cloud/Hubs/chatHub")
       .withAutomaticReconnect()
       .build();
 
     connection
       .start()
-      .then(() => console.log("SignalR Connected"))
-      .catch((err) => console.log("SignalR Connection Error: ", err));
+      .then(() => {
+        console.log("SignalR Connected");
+        setConnectStatus(true);
+      })
+      .catch((err) => {
+        console.log("SignalR Connection Error: ", err);
+        setConnectStatus(false);
+      });
 
     connection.on("ReceiveMessage", (message) =>
       setMessages((prevMessages) => [...prevMessages, message])
@@ -32,14 +42,12 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Chat App</h1>
+      <h1>RESPRINT</h1>
       <input type="text" id="message" placeholder="Type a message"/>
       <button id="send" onClick={handleClick}>Send</button>
-      <ul>
-        {messages().map((message, index) => (
-          <li>{message}</li>
-        ))}
-      </ul>
+      <ToggleButton/>
+      <DropdownMenu/>
+      <ConnectionStatus isConnected={connectStatus()}/>
     </main>
   );
 }
