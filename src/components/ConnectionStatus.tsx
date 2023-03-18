@@ -1,8 +1,8 @@
 import { createSignal } from "solid-js";
 import "./ConnectionStatus.css";
 
-export default function ConnectionStatus() {
-  const [isConnected, setIsConnected] = createSignal(false);
+export default function ConnectionStatus(props) {
+  const [isConnected, setIsConnected] = createSignal(props.isConnected);
 
   function handleDisconnect() {
     setIsConnected(false);

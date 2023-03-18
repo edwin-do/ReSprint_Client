@@ -13,6 +13,7 @@ import {
   Title,
 } from "solid-start";
 import "./root.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Root() {
   return (

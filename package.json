@@ -16,6 +16,7 @@
     "@microsoft/signalr": "^7.0.4",
     "@solidjs/meta": "^0.28.0",
     "@solidjs/router": "^0.5.0",
+    "bootstrap": "^5.2.3",
     "globalthis": "^1.0.3",
     "solid-js": "^1.5.7",
     "solid-start": "^0.1.0",
