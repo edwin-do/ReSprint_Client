@@ -16,7 +16,7 @@ export default function Home() {
 
   createEffect(() => {
     connection = new HubConnectionBuilder()
-      .withUrl("https://earlyyellowrock19.conveyor.cloud/Hubs/chatHub")
+      .withUrl("https://192.168.0.119:45457/Hubs/chatHub")
       .withAutomaticReconnect()
       .build();
 

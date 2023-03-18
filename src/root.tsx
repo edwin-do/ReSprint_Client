@@ -22,6 +22,7 @@ export default function Root() {
         <Title>ReSprint | Client Application</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       <Body>
         <Suspense>
