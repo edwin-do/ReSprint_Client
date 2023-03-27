@@ -14,6 +14,8 @@ import {
 } from "solid-start";
 import "./root.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import toast, { Toaster } from 'solid-toast';
+
 
 export default function Root() {
   return (

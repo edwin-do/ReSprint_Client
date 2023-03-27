@@ -1,16 +1,11 @@
 import { createSignal } from "solid-js";
 import "./ToggleButton.css";
 
-export default function ToggleButton() {
-  const [isOn, setIsOn] = createSignal(false);
-
-  function handleClick() {
-    setIsOn(!isOn());
-  }
-
+export default function ToggleButton({handleClick}, props) {
+  
   return (
-    <button class={`toggle-button ${isOn() ? "on" : "off"}`} onClick={handleClick}>
-      {isOn() ? "ON" : "OFF"}
+    <button class={`toggle-button ${props.isOn ? "on" : "off"}`} onClick={handleClick}>
+      {props.isOn ? "ON" : "OFF"}
     </button>
   );
 }
