@@ -28,6 +28,7 @@ export default function Home() {
   createEffect(() => {
     connection = new HubConnectionBuilder()
       .withUrl("https://130.113.3.225:45457/Hubs/chatHub")
+      // .withUrl("https://169.254.165.129:45457/Hubs/chatHub")
       .withAutomaticReconnect()
       .build();
       
@@ -50,6 +51,10 @@ export default function Home() {
 
     connection.on("UpdateCurrentStatus", (status) =>
       setCurrentSource(status)
+    );
+
+    connection.on("UpdateExperimentStatus", (status) =>
+      setExperimentStatus(status)
     );
 
     //Server should send another signal on exit/pause
@@ -110,6 +115,12 @@ export default function Home() {
     setConnectStatus(connection.state);
   }
 
+  // const updateExperimentStatus = () => {
+  //   handleGetExperimentStatus();
+  //   console.log(experimentStatus);
+  //   setExperimentStatus(experimentStatus);
+  // }
+
   const handleToggleCurrent = async() => {
     //invoke command
     !currentSource() ? connection.invoke("turnCurrentOn") : connection.invoke("turnCurrentOff");
@@ -123,9 +134,11 @@ export default function Home() {
   };
 
   const handleGetExperimentStatus = async() => {
+    console.log(experimentStatus());
     connection.invoke("getExperimentStatus");
 
     await connection.on("UpdateExperimentStatus", (eStatus) => {
+      console.log(eStatus)
       setExperimentStatus(eStatus);
     });
   }
@@ -200,7 +213,7 @@ export default function Home() {
                       type="button"
                       class={"btn btn-success mb-3"}
                       onClick={handleStartExperiment}
-                      disabled={experimentStatus() || !(connectStatus()==HubConnectionState.Connected)}
+                      disabled={!(connectStatus()==HubConnectionState.Connected)}
                     >
                       <VsDebugStart/> Start/Continue Experiment
                 </button>
@@ -209,7 +222,7 @@ export default function Home() {
                       type="button"
                       class={"btn btn-dark mb-3"}
                       onClick={handleStopExperiment}
-                      disabled={!experimentStatus() || !(connectStatus()==HubConnectionState.Connected)}
+                      disabled={!(connectStatus()==HubConnectionState.Connected)}
                     >
                       <FaRegularCircleStop/> Stop Experiment
                     </button>
